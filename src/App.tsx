@@ -1,6 +1,8 @@
 import { useState, FC, ChangeEvent } from "react";
 import "./App.css";
 import InputField from "./component/Input";
+import EstimatedValue from "./component/EstimatedValue";
+import Button from "./component/Button";
 
 interface Inputs {
   [key: string]: number;
@@ -34,7 +36,14 @@ const App: FC = () => {
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setValues((prevValues) => ({ ...prevValues, [name]: Number(value) }));
+    // Validate if the input is a number
+    const isNumber = /^[0-9]*$/;
+    if (isNumber.test(value) || value === "") {
+      setValues((prevValues) => ({
+        ...prevValues,
+        [name]: value === "" ? 0 : Number(value),
+      }));
+    }
     setTotal(0);
   };
 
@@ -56,6 +65,9 @@ const App: FC = () => {
     setTotal(total);
   };
 
+  // Check if any input is ero
+  const isAnyInputInvalid = Object.values(values).some((value) => value === 0);
+
   return (
     <div>
       <p className="title">Valuation Calculator</p>
@@ -73,13 +85,10 @@ const App: FC = () => {
               onBlur={handleInputBlur}
             />
           ))}
-          <button onClick={handleButtonClick}>Calculate</button>
-          {total > 0 && (
-            <div className="inputField">
-              <p className="totalTitle">Estimated Value</p>
-              <p className="total">${total}</p>
-            </div>
-          )}
+          <Button onClick={handleButtonClick} disabled={isAnyInputInvalid}>
+            Calculate
+          </Button>
+          <EstimatedValue total={total} />
         </div>
         <div>
           <p>Description</p>

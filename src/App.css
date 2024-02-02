@@ -73,6 +73,9 @@ button:hover {
 button:focus {
   outline: none;
 }
+button:disabled{
+opacity: 0.5;
+}
 .description {
   font-size: 14px;
   line-height: 1.5;
