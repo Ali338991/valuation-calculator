@@ -1,6 +1,7 @@
-#root{
+#root {
   height: 100vh;
 }
+
 .container {
   display: flex;
   justify-content: space-between;
@@ -9,27 +10,28 @@
   padding: 20px;
   border: 1px solid white;
   border-radius: 10px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -o-border-radius: 10px;
 }
-.title{
+
+.title {
   text-align: center;
   font-size: 30px;
 }
+
 .container > div {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
+
 .container > div:last-child {
   margin-left: 20px;
 }
-p{
-  margin: 0px !important;
+
+p {
+  margin: 0;
 }
+
 .inputField {
   display: flex;
   flex-direction: column;
@@ -49,7 +51,6 @@ input {
   min-height: 30px;
 }
 
-
 button {
   display: inline-block;
   padding: 10px 20px;
@@ -62,32 +63,32 @@ button {
   border-radius: 5px;
   transition: background-color 0.3s ease;
   color: #fff;
-  background-color: #3498db; /* Button color */
+  background-color: #3498db;
   width: 50%;
 }
 
 button:hover {
-  background-color: #2980b9; /* Hover color */
+  background-color: #2980b9;
 }
 
-button:focus {
-  outline: none;
+button:disabled {
+  opacity: 0.5;
 }
-button:disabled{
-opacity: 0.5;
-}
+
 .description {
   font-size: 14px;
   line-height: 1.5;
 }
-.totalTitle{
+
+.totalTitle {
   font-size: 20px;
 }
 
-.total{
+.total {
   font-size: 18px;
   font-weight: bold;
 }
+
 /* Responsive Styles */
 @media (max-width: 600px) {
   .container {
@@ -101,8 +102,9 @@ opacity: 0.5;
   button {
     align-self: flex-start;
   }
+
   .container > div:last-child {
-    margin-left: 0px;
+    margin-left: 0;
     margin-bottom: 20px;
   }
 }

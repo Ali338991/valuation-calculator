@@ -7,15 +7,8 @@ import Button from "./component/Button";
 interface Inputs {
   [key: string]: number;
 }
-interface descriptionList {
-  [key: string]: string;
-}
-const descriptionList: descriptionList = {
-  numberOfAgents: "Enter the number of agents",
-  annualClosing: "Enter the annual closing amount",
-  averageFee: "Enter the average fee per agent",
-  annualExpenses: "Enter the annual expenses amount",
-};
+
+const MULTIPLIER = 2.5;
 
 const App: FC = () => {
   const inputFields = [
@@ -31,19 +24,17 @@ const App: FC = () => {
     averageFee: 0,
     annualExpenses: 0,
   });
+
   const [total, setTotal] = useState(0);
   const [description, setDescription] = useState("Select field for detail");
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    // Validate if the input is a number
-    const isNumber = /^[0-9]*$/;
-    if (isNumber.test(value) || value === "") {
-      setValues((prevValues) => ({
-        ...prevValues,
-        [name]: value === "" ? 0 : Number(value),
-      }));
-    }
+    const newValue = isNaN(Number(value)) ? 0 : Number(value);
+    setValues((prevValues) => ({
+      ...prevValues,
+      [name]: newValue,
+    }));
     setTotal(0);
   };
 
@@ -56,16 +47,12 @@ const App: FC = () => {
   };
 
   const handleButtonClick = () => {
-    const { numberOfAgents, annualClosing, averageFee, annualExpenses } =
-      values;
-    console.log(averageFee + annualClosing + numberOfAgents, annualExpenses);
-    const total: number =
-      (numberOfAgents * 1200 + annualClosing * averageFee - annualExpenses) *
-      2.5; //2.5 is multipler
+    const { numberOfAgents, annualClosing, averageFee, annualExpenses } = values;
+    const total =
+      (numberOfAgents * 1200 + annualClosing * averageFee - annualExpenses) * MULTIPLIER;
     setTotal(total);
   };
 
-  // Check if any input is ero
   const isAnyInputInvalid = Object.values(values).some((value) => value === 0);
 
   return (
@@ -79,7 +66,7 @@ const App: FC = () => {
               label={field.label}
               id={field.id}
               name={field.name}
-              value={values[field.name] === 0?"":values[field.name] }
+              value={values[field.name] === 0 ? "" : values[field.name].toString()}
               onChange={handleInputChange}
               onFocus={() => handleInputFocus(field.id)}
               onBlur={handleInputBlur}
@@ -97,6 +84,17 @@ const App: FC = () => {
       </div>
     </div>
   );
+};
+
+interface DescriptionList {
+  [key: string]: string;
+}
+
+const descriptionList: DescriptionList = {
+  numberOfAgents: "Enter the number of agents",
+  annualClosing: "Enter the annual closing amount",
+  averageFee: "Enter the average fee per agent",
+  annualExpenses: "Enter the annual expenses amount",
 };
 
 export default App;
