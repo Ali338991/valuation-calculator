@@ -32,7 +32,7 @@ const App: FC = () => {
     annualExpenses: 0,
   });
   const [total, setTotal] = useState(0);
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState("Select field for detail");
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
