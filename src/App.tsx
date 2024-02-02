@@ -79,7 +79,7 @@ const App: FC = () => {
               label={field.label}
               id={field.id}
               name={field.name}
-              value={values[field.name]}
+              value={values[field.name] === 0?"":values[field.name] }
               onChange={handleInputChange}
               onFocus={() => handleInputFocus(field.id)}
               onBlur={handleInputBlur}
